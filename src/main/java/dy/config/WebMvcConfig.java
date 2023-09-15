@@ -12,6 +12,7 @@ import dy.common.*;
 
 
 @Configuration
+//如果继承WebMvcConfigurationSupport 会导致某些默认配置被修改
 public class WebMvcConfig implements WebMvcConfigurer{
 	/**
      * 扩展mvc框架的消息转换器

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 
 
-//分页
+//分页　　ページねーション　
 @Configuration
 public class MybatisPlusConfig {
 	

@@ -19,8 +19,6 @@ import dy.service.SetmealService;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 	@Autowired
 	private DishService ds;
-	@Autowired
-	private SetmealService ss;
 
 	//@Override
 	public void remove(Long ids) {
@@ -42,9 +40,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 			// 给出错误异常
 			throw new DIYExo("存在套餐绑定关系,无法删除");
 		}
-		
 		//都没有表示不存在关系
-		super.removeById(ids);
+		removeById(ids);
 	}
 	
 }

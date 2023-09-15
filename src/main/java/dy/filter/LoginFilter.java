@@ -40,7 +40,9 @@ public class LoginFilter implements Filter {
 			"/employee/logout",
 			"/backend/**",
 			"/front/**",
-			"/common/**"
+			"/common/**",
+			"/user/sendMsg",
+            "/user/login"
 		};
 		//创建方法，判断请求是否需要处理
 		boolean check = check(requestURI, urls);
@@ -50,7 +52,7 @@ public class LoginFilter implements Filter {
 			return;
 		};
 		
-		//判断登录状态，如果已登录，直接放行
+		//判断后台登录状态，如果已登录，直接放行
 		if(request.getSession().getAttribute("employee")!=null) {
 			
 			//Long id = (Long) request.getSession().getAttribute("employee");
@@ -65,6 +67,21 @@ public class LoginFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
+		//判断移动登录状态，如果已登录，直接放行
+				if(request.getSession().getAttribute("user")!=null) {
+					
+					//Long id = (Long) request.getSession().getAttribute("employee");
+//					Long id = Thread.currentThread().getId();
+//					log.info("线程id是{}",id);
+					//log.info("用户已登录，用户id为：{}",request.getSession().getAttribute("employee"));
+					//获取进程
+					Long id = (Long) request.getSession().getAttribute("user");
+				//	log.info("线程id{}",id);
+					BaseContext.setCurrentId(id);
+				//	System.out.println("BaseContext.setCurrentId的值是"+id);
+					chain.doFilter(request, response);
+					return;
+				}
 		//如果未登录则返回结果,通过结果发送给前端
 		response.getWriter().write(JSON.toJSONString(Result.error("NOTLOGIN")));
 		return;
